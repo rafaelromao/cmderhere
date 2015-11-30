@@ -1,0 +1,48 @@
+;
+; "Cmder Here" PowerToy
+;
+; Copyright 2015 Rafael Romão
+; http://www.rafaelromao.com
+;
+; Based on PowerShell Prompt Here, from Scott Hanselman
+;
+
+[version]
+signature="$CHICAGO$"
+
+[CmderHereInstall]
+CopyFiles = CmderHere.Files.Inf
+AddReg    = CmderHere.Reg
+
+[DefaultInstall]
+CopyFiles = CmderHere.Files.Inf
+AddReg    = CmderHere.Reg
+
+[DefaultUnInstall]
+DelFiles  = CmderHere.Files.Inf
+DelReg    = CmderHere.Reg
+
+[SourceDisksNames]
+55="Cmder Prompt Here","",1
+
+[SourceDisksFiles]
+CmderHere.INF=55
+
+[DestinationDirs]
+CmderHere.Files.Inf = 17
+
+[CmderHere.Files.Inf]
+CmderHere.INF
+
+[CmderHere.Reg]
+HKLM,%UDHERE%,DisplayName,,"%CmderHereName%"
+HKLM,%UDHERE%,UninstallString,,"rundll32.exe syssetup.dll,SetupInfObjectInstallAction DefaultUninstall 132 %17%\CmderHere.inf"
+HKCR,Directory\Shell\CmderHere,,,"%CmderHereAccel%"
+HKCR,Directory\Shell\CmderHere\command,,,""""C:\Program Files\Cmder\Cmder.exe""" /start ""%1"""
+HKCR,Drive\Shell\CmderHere,,,"%CmderHereAccel%"
+HKCR,Drive\Shell\CmderHere\command,,,"""C:\Program Files\Cmder\Cmder.exe"" /start ""%1"""
+
+[Strings]
+CmderHereName="Cmder Prompt Here PowerToy"
+CmderHereAccel="&Cmder Prompt Here"
+UDHERE="Software\Microsoft\Windows\CurrentVersion\Uninstall\CmderHere"
